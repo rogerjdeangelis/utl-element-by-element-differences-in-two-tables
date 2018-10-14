@@ -1,6 +1,15 @@
 # utl-element-by-element-differences-in-two-tables
 Element by element differences in two tables .
-    Element by element differences in two tables                                                                
+    Element by element differences in two tables  
+    
+    Additional recent enhanced solutions on end by  
+                                                    
+    Keintz, Mark                                    
+    mkeintz@wharton.upenn.edu                       
+                                                    
+    data _null_,                                    
+    datanull@gmail.com                              
+                                                    
                                                                                                                 
     Compare last years monthly grades to this years monthly grades for same students                            
                                                                                                                 
@@ -8,7 +17,9 @@ Element by element differences in two tables .
                                                                                                                 
            1. SQL arrays                                                                                        
            2. Datastep arrays                                                                                   
-           3. R                                                                                                 
+           3. R       
+           4. proc compare data_null                                    
+           5. PDV constructions and diff function      
                                                                                                                 
     github                                                                                                      
     https://tinyurl.com/y9uvbvzp                                                                                
@@ -157,6 +168,57 @@ Element by element differences in two tables .
            end;                                                                                                 
            output;                                                                                              
          end;                                                                                                   
-    run;quit;                                                                                                   
+    run;quit;          
+    
+        Additional recent enhanced solutions on end by                  
+                                                                    
+    Keintz, Mark                                                    
+    mkeintz@wharton.upenn.edu                                       
+                                                                    
+    data _null_,                                                    
+    datanull@gmail.com                                              
+                                                                    
+                                                                    
+    *    _       _                           _ _                    
+      __| | __ _| |_ __ _        _ __  _   _| | |                   
+     / _` |/ _` | __/ _` |      | '_ \| | | | | |                   
+    | (_| | (_| | || (_| |      | | | | |_| | | |                   
+     \__,_|\__,_|\__\__,_|  ____|_| |_|\__,_|_|_|____               
+                           |_____|             |_____|              
+    ;                                                               
+                                                                    
+    data _null_,                                                    
+    datanull@gmail.com                                              
+                                                                    
+    proc compare base=sd1.current compare=sd1.past                  
+          out=comp(drop=_:) outdiff noprint;;                       
+       id student;                                                  
+       run;                                                         
+    proc print;                                                     
+       run;                                                         
+                                                                    
+    *                     _                                         
+     _ __ ___   __ _ _ __| | __                                     
+    | '_ ` _ \ / _` | '__| |/ /                                     
+    | | | | | | (_| | |  |   <                                      
+    |_| |_| |_|\__,_|_|  |_|\_\                                     
+                                                                    
+    ;                                                               
+                                                                    
+    Keintz, Mark                                                    
+    mkeintz@wharton.upenn.edu                                       
+                                                                    
+    data want;                                                      
+      set sd1.past sd1.current;                                     
+      by student;                                                   
+      array sc {*} jan -- dec;                                      
+      do _n_=1 to dim(sc);                                          
+        sc{_n_}=dif(sc{_n_});                                       
+      end;                                                          
+      if last.student;                                              
+    run;                                                            
+                                                                    
+                    
+
                                                                                                                 
                                                                                                                 
